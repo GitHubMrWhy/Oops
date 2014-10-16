@@ -23,6 +23,8 @@ function register($user,$fullName, $pass,$email,$year,$college,$gender,$photoDat
 	$result = query("INSERT INTO login(username,fullName,userpass,gender,email,confirmationCode,year,college,bio) VALUES('$user','$fullName','$pass','$gender','$email','$confirm_code','$year','$college','$bio')");
 	if (!$result['error']) {
 	//success
+
+		/*
 		//check if there was no error during the file upload
 			//get the last automatically generated id
 			//$IdPhoto = mysqli_insert_id($link);
@@ -37,9 +39,10 @@ function register($user,$fullName, $pass,$email,$year,$college,$gender,$photoDat
 				errorJson('Upload on server problem');
 				
 				}
+			*/
 			
 		//echo "success into data try to send email";
-		sendComformation( $user, $email, $confirm_code);
+		//sendComformation( $user, $email, $confirm_code);
 		login($user, $pass);
 		
 

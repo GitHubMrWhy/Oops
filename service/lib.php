@@ -1,8 +1,8 @@
 <?
 
 //setup db connection
-$link = mysqli_connect("promotest.db.11464571.hostedresource.com","promotest","x921017Z!");
-mysqli_select_db($link, "promotest");
+$link = mysqli_connect("23.229.205.68","cs307","cs307group");
+mysqli_select_db($link, "cs307");
 
 //executes a given sql query with the params and returns an array as result
 function query() {

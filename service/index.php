@@ -3,10 +3,13 @@ session_start();
 require("lib.php");
 require("api.php");
 
+
 header("Content-Type: application/json");
 
 //checkCRN('10520');
 //deleteCourseItem('test','123');
+
+
 switch ($_POST['command']) {
 	case "showTradeList":
 		showTradeList();break;
