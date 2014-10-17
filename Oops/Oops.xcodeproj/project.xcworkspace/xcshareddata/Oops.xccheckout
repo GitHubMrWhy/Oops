@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>7B9F0B69-C83F-4ADF-B4B2-96B15C6121E8</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Oops</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>4BA1D8AE245143836249FAD20A3E48B558E01232</key>
+		<string>https://github.com/GitHubMrWhy/Oops.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Oops/Oops.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>4BA1D8AE245143836249FAD20A3E48B558E01232</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/GitHubMrWhy/Oops.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>4BA1D8AE245143836249FAD20A3E48B558E01232</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>4BA1D8AE245143836249FAD20A3E48B558E01232</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Oops</string>
+		</dict>
+	</array>
+</dict>
+</plist>
