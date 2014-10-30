@@ -1,0 +1,61 @@
+create table user
+(
+  id int unsigned not null  auto_increment,
+  name varchar(20) not null,
+  password varchar(300) not null,
+  email varchar(60) not null unique,
+  phone varchar(60) not null unique,
+  primary key(id)          
+)engine=innodb default charset=utf8 auto_increment=1;
+
+create table reports
+(
+  id int unsigned not null  auto_increment,
+  time varchar(50) not null,
+  aircraft varchar(50),
+  client varchar(50),
+  taskNumber varchar(50),
+  pilot varchar(60),
+  copilot varchar(60),
+  paramedic varchar(60),
+  paramedic1 varchar(60),
+  paramedic2 varchar(60),
+  pname varchar(60),
+  pcompany varchar(60),
+  pname1 varchar(60),
+  pcompany1 varchar(60),
+  pname2 varchar(60),
+  pcompany2 varchar(60),
+  paname varchar(60),
+  pabirth varchar(60),
+  paaddress varchar(60),
+  paname1 varchar(60),
+  pabirth1 varchar(60),
+  paaddress1 varchar(60),
+  paname2 varchar(60),
+  pabirth2 varchar(60),
+  paaddress2 varchar(60),
+  detail text,
+  comments text,
+  jobType1 int(1),
+  jobType2 int(1),
+  jobType3 int(1),
+  jobType4 int(1),
+  jobdescribe text,
+  jobDesc text,
+  fightDetails1 text,
+  fightDetails2 text,
+  fightDetails3 text,
+  fightDetails4 text,
+  fightDetails5 text,
+  fightDetails6 text,
+  fuelAt varchar(60),
+  fuelAdd varchar(60),
+  fuelshut varchar(60),
+  fuelused varchar(60),
+  location varchar(60),
+  supplier varchar(60),
+  primary key(id)          
+)engine=innodb default charset=utf8 auto_increment=1;
+
+
