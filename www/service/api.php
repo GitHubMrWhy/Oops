@@ -8,7 +8,7 @@ function errorJson($msg){
 	exit();
 }
 
-
+//=========================USER==========================
 
 function register($user,$fullName, $pass,$email,$year,$college,$gender,$photoData,$bio) {
 	//check if username exists
@@ -62,7 +62,7 @@ function register($user,$fullName, $pass,$email,$year,$college,$gender,$photoDat
 
 
 function login($username, $pass) {
-	$result = query("SELECT userID, username,fullName,gender,bio,year,college,valid FROM login WHERE username='%s' AND userpass='%s' ", $username, $pass);
+	$result = query("SELECT user_id, username,full_name,valid FROM login WHERE username='%s' AND userpass='%s' ", $username, $pass);
 	if (count($result['result'])>0) {
 		//authorized
 		$_SESSION['username'] = $result['result'][0]['username'];
@@ -77,6 +77,24 @@ function login($username, $pass) {
 		//errorJson('Authorization failed');
 	}
 }
+
+//=======================event=================================
+
+function showEventList(){
+	$result=query("SELECT * FROM event ORDER BY event_id DESC");
+	if ($result['error']) {
+		//echo "error when find username";
+		errorJson('ERROR: Event List retrieve error');
+	}else{
+		
+		print json_encode($result['result']);
+	}
+}
+
+
+
+
+
 function showInfo($username){
 	$result = query("SELECT username,email,gender FROM login WHERE username='%s' ", $username);
 	if ($result['error']) {
@@ -87,16 +105,7 @@ function showInfo($username){
 		print json_encode($result);
 	}
 }
-function showTradeList(){
-	$result=query("SELECT * FROM trade_List ORDER BY id DESC");
-	if ($res['error']) {
-		//echo "error when find username";
-		
-	}else{
-		
-		print json_encode($result);
-	}
-}
+
 function AddTradeToList($username,$have,$exchange,$emailPrivacy,$note,$gender){
 
 

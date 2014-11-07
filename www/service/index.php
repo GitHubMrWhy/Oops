@@ -16,12 +16,17 @@ require("api.php");
 	
 switch ($_POST['command']) {
 	
-	case "showTradeList":
-		showTradeList();break;
+	
 	case "login": 
 		login($_POST['username'], $_POST['password']); break;
+	/*
 	case "register":
 		register($_POST['username'], $_POST['fullName'],$_POST['password'],$_POST['email'],$_POST['year'],$_POST['college'],$_POST['gender'],$_FILES['file'],$_POST['bio']); break;
+	*/
+
+	case "showEventList":
+		showEventList();break;
+	/*
 	case "changeBio":
 		changeBio($_POST['username'], $_POST['bio']); break;
  	case "AddCourseToList":
@@ -43,7 +48,7 @@ switch ($_POST['command']) {
     
     case "showInfo":
     	showInfo($_POST['username']);break;
-    
+    */
     default:
     /*
     $myfile = fopen("newfile.txt", "w") or die("Unable to open file!");

@@ -21,6 +21,29 @@ function showUser(str) {
   xmlhttp.send();
 }
 </script>
+
+<script>
+function showEvent(str) {
+  if (str=="") {
+    document.getElementById("txtHint").innerHTML="";
+    return;
+  } 
+  if (window.XMLHttpRequest) {
+    // code for IE7+, Firefox, Chrome, Opera, Safari
+    xmlhttp=new XMLHttpRequest();
+  } else { // code for IE6, IE5
+    xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  }
+  xmlhttp.onreadystatechange=function() {
+    if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+      document.getElementById("txtHint").innerHTML=xmlhttp.responseText;
+    }
+  }
+  xmlhttp.open("GET","test.php?q="+str,true);
+  xmlhttp.send();
+}
+</script>
+
 </head>
 <body>
 
@@ -32,7 +55,13 @@ function showUser(str) {
 </form>
 
 
+<form id="loginform" action="../service/index.php" method="post" >
+<pre>
 
+
+<input type="hidden" name="command" value="showEventList" />
+<input type="submit" value="showEventList" /> 
+</pre></form>
 
 <form>
 <select name="users" onchange="showUser(this.value)">
@@ -44,7 +73,7 @@ function showUser(str) {
 </select>
 </form>
 <br>
-<div id="txtHint"><b>Person info will be listed here.</b></div>
+<div id="txtHint"><b>Result will show here</b></div>
 
 </body>
 </html>
