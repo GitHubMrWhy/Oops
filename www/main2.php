@@ -20,11 +20,11 @@ echo <<<_END
         padding: 0;
         height: 100%;
      }
-         
+       .gm-style-iw > div { height: 100% !important; width: 100% !important; overflow: hidden !important; }  
      
     </style>
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
-	
+	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places"></script>
 
 	</head>
 
@@ -60,13 +60,20 @@ echo <<<_END
           </ul>
         </li>
       </ul>
-      <form class="navbar-form navbar-left" role="search">
+      <form class="navbar-form navbar-left" onsubmit=" return false;">
         <div class="form-group">
-          <input type="text" id="autocomplete" class="form-control" placeholder="Search">
-          
+          <input type="text" id="autocomplete" class="form-control" placeholder="Enter a City">
+          <select class="form-control" name="searchby" onchange="dropdownTest(this.value)">
+			<option value="defaultopts" selected>--Search by--</option>
+			<option value="events">Events</option>
+			<option value="users">Users</option>
+			<option value="pictures">Pictures</option>
+			</select>
         </div>
         <button type="button" class="btn btn-default btn-lg" onclick="testloc()">Loc test 1</button>
         <button type="button" class="btn btn-default brn-lg" onclick="hideMarkers()">Hide test</button>
+		<button type="button" class="btn btn-default brn-lg" onclick="eventTest()">Event test</button>
+		
       </form>
       <ul class="nav navbar-nav navbar-right">
         <li><a href="#">Link</a></li>
