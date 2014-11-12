@@ -1,0 +1,42 @@
+
+
+/*======================== Yi Fei Wang ======================*/
+/*my_profile.php*/
+.head-nav{
+word-wrap: break-word;
+font-size: 25px;
+font-weight: bold;
+color: #494949;
+line-height: 1.1;
+}
+.hd{
+word-wrap: break-word;
+font-size: 25px;
+font-weight: bold;
+color: #494949;
+line-height: 1.1;
+
+}
+.pic1{
+	margin: 10px;
+    padding: 5px;
+    float: left;
+	top:0px;
+}
+
+.nav-logo{
+    width: 400px;
+    height: 600px;
+    float: left;
+	background-color: #3333;
+}
+
+
+/*========================== Doung ==============================*/
+/*main.php*/
+ html, body,#map-canvas {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+     }
+.gm-style-iw > div { height: 100% !important; width: 100% !important; overflow: hidden !important; }  

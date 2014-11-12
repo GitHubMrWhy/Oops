@@ -8,9 +8,9 @@
     <div id='info'>This sentence will be replaced</div>
   
     <script>
-      params  = "command=showEventList"  
+      params  = "command=showImageList"  
       request = new ajaxRequest()
-      var data= "aaa"
+      
       request.open("POST", "service/index.php", true)
       request.setRequestHeader("Content-type",
         "application/x-www-form-urlencoded")
@@ -27,7 +27,7 @@
             {
                 data = JSON.parse(this.responseText)
           
-                document.getElementById('info').innerHTML =data.length
+                document.getElementById('info').innerHTML =data[1].src
 
             }
             else alert("Ajax error: No data received")

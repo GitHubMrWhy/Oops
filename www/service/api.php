@@ -1,7 +1,7 @@
 <?php
-
-session_start();
 ob_start();
+session_start();
+require("lib.php");
 //API implementation to come here
 function errorJson($msg){
 	print json_encode(array('error' => $msg));
@@ -10,20 +10,21 @@ function errorJson($msg){
 
 //=========================USER==========================
 
-function register($user,$fullName, $pass,$email,$year,$college,$gender,$photoData,$bio) {
+function register($user,$pass,$email,$gender) {
 	//check if username exists
 	$login = query("SELECT username FROM login WHERE username='%s' ", $user);
 	
 	if (count($login['result'])>0) {
-		errorJson('Username already exists');
+		//errorJson('Username already exists');
 		//echo "sername already exists";
 	}else{
-	//try to register the user
+		//try to register the user
 	// Random confirmation code 
 	$confirm_code=md5(uniqid(rand())); 
 	//echo  $confirm_code. '     '.$user.'    '.$email."\n";
+	creating_identicons($user,$pass,$email,$gender);
 	
-	$result = query("INSERT INTO login(username,fullName,userpass,gender,email,confirmationCode,year,college,bio) VALUES('$user','$fullName','$pass','$gender','$email','$confirm_code','$year','$college','$bio')");
+	$result = query("INSERT INTO login(username,userpass,gender,email,confirmation_code) VALUES('$user','$pass','$gender','$email','$confirm_code')");
 	if (!$result['error']) {
 	//success
 
@@ -43,19 +44,22 @@ function register($user,$fullName, $pass,$email,$year,$college,$gender,$photoDat
 				
 				}
 			*/
-			
+
 		//echo "success into data try to send email";
 		//sendComformation( $user, $email, $confirm_code);
-		login($user, $pass);
-		
+				login($user, $pass);
 
-	} else {
+
+			} else {
 	//error
-		errorJson('Registration failed');
+				//errorJson('Registration failed');
 		//echo "Registration failed";
-	}
+			}
 
-}
+
+
+
+	}
 
 }
 
@@ -90,6 +94,8 @@ function showEventList(){
 		print json_encode($result['result']);
 	}
 }
+
+
 
 
 
@@ -250,6 +256,20 @@ function checkCRN($crn){
 	
 } 
 
+//===================================== image ==========================================
+
+function showImageList(){
+	$result=query("SELECT * FROM image ORDER BY image_id DESC");
+	if ($result['error']) {
+		//echo "error when find username";
+		errorJson('ERROR: Event List retrieve error');
+	}else{
+		
+		print json_encode($result['result']);
+	}
+}
+
+
 function photoUpload($username, $photoData, $title) {
 	//check if a user id is passed
 	if (!$username) 
@@ -287,5 +307,54 @@ function retrievePhoto($username){
 
 }
 
+function creating_identicons($user,$pass,$email,$gender){
+
+	// Convert string to MD5
+		$hash = md5($user . $pass . $email . $gender);
+	// Get color from first 6 characters
+		$color = substr($hash, 0, 6);
+// Create an array to store our boolean "pixel" values
+		$pixels = array();
+
+// Make it a 5x5 multidimensional array
+		for ($i = 0; $i < 5; $i++) {
+			for ($j = 0; $j < 5; $j++) {
+				$pixels[$i][$j] = hexdec(substr($hash, ($i * 5) + $j + 6, 1))%2 === 0;
+			}
+		}
+
+// Create image
+		$image = imagecreatetruecolor(400, 400);
+// Allocate the primary color. The hex code we assigned earlier needs to be decoded to RGB
+		$color = imagecolorallocate($image, hexdec(substr($color,0,2)), hexdec(substr($color,2,2)), hexdec(substr($color,4,2)));
+// And a background color
+		$bg = imagecolorallocate($image, 238, 238, 238);
+
+// Color the pixels
+		for ($k = 0; $k < count($pixels); $k++) {
+			for ($l = 0; $l < count($pixels[$k]); $l++) {
+        // Default pixel color is the background color
+				$pixelColor = $bg;
+
+        // If the value in the $pixels array is true, make the pixel color the primary color
+				if ($pixels[$k][$l]) {
+					$pixelColor = $color;
+				}
+
+        // Color the pixel. In a 400x400px image with a 5x5 grid of "pixels", each "pixel" is 80x80px
+				imagefilledrectangle($image, $k * 80, $l * 80, ($k + 1) * 80, ($l + 1) * 80, $pixelColor);
+			}
+		}
+
+// Output the image
+
+		imagePNG($image,"../sys_img/profile_".$user.".png");
+		
+		//header("content-type: image/jpeg");
+		//echo imageJPEG($image);;
+	}
+
+
+ob_clean();
 
 ?>

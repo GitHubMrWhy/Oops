@@ -13,7 +13,7 @@ if (isset($_SESSION['username']))
     session_destroy();
 
 
-    echo "<script language=javascript>window.location.href='login.html'</script>"; 
+    echo "<script language=javascript>window.location.href='index.php'</script>"; 
 }
 
 

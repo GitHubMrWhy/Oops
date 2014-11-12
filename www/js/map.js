@@ -4,7 +4,8 @@ var geocoder;
 var marker;
 var myinfowindow;
 var markers;
-var data;
+var event_list
+var img_list
 var autocp;
 var countryRestrict = { country: 'us' };
 
@@ -15,28 +16,27 @@ var locs = [
 ];
 
 
-params  = "command=showEventList"  
-request = new ajaxRequest()
+  
+//data = JSON.parse(this.responseText)
 
-request.open("POST", "service/index.php", true)
-request.setRequestHeader("Content-type",
-  "application/x-www-form-urlencoded")
-request.setRequestHeader("Content-length", params.length)
-request.setRequestHeader("Connection", "close")
+  img_params  = "command=showImageList"  
+  img_request = new XMLHttpRequest()
+
+  img_request.open("POST", "service/index.php", true)
+  img_request.setRequestHeader("Content-type",
+    "application/x-www-form-urlencoded")
 
 
-
-
-request.onreadystatechange = function()
-{
-  if (this.readyState == 4)
+  img_request.onreadystatechange = function()
   {
-    if (this.status == 200)
+    if (this.readyState == 4)
     {
-      if (this.responseText != null)
+      if (this.status == 200)
       {
-        data = JSON.parse(this.responseText)
-
+        if (this.responseText != null)
+        {
+          img_list = JSON.parse(this.responseText)
+          
         //document.getElementById('info').innerHTML =data.length
 
       }
@@ -46,36 +46,10 @@ request.onreadystatechange = function()
 }
 }
 
-request.send(params)
+img_request.send(img_params)
 //data = JSON.parse(this.responseText)
+   
 
-
-function ajaxRequest()
-{
-  try
-  {
-     request = new XMLHttpRequest()
-  }
-  catch(e1)
-  {
-    try
-    {
-      request = new ActiveXObject("Msxml2.XMLHTTP")
-    }
-    catch(e2)
-    {
-      try
-      {
-        request = new ActiveXObject("Microsoft.XMLHTTP")
-      }
-      catch(e3)
-      {
-        request = false
-      }
-    }
-  }
-  return request
-}
 
 
 function initialize() {
@@ -228,11 +202,15 @@ function testloc(){
 }
 
 function eventTest() {
-	marker.setMap(null);
-	hideMarkers();
-	for (var i = 0; i < locs.length; i++) {
-    	var mkpos = locs[i];
-    	var myLatLng = new google.maps.LatLng(mkpos[0], mkpos[1]);
+  marker.setMap(null);
+  hideMarkers();
+
+
+  //post_form("command=showEventList");
+
+	for (var i = 0; i < event_list.length; i++) {
+    	var mkpos = event_list[i];
+    	var myLatLng = new google.maps.LatLng(event_list[i].latitude, event_list[i].longitude);
     	var contentString;
 		//check database if already joined
 
@@ -242,11 +220,11 @@ function eventTest() {
 		contentString = '<div id="content">'+'<center>'+
 		  '<div id="siteNotice">'+
 		  '</div>'+
-		  '<h1 id="firstHeading" class="firstHeading">'+mkpos[2]+'</h1>'+
+		  '<h1 id="firstHeading" class="firstHeading">'+event_list[i].subject+'</h1>'+
 		  '<div id="bodyContent">'+
-		  '<p>Date: '+ mkpos[3] +'</p>'+
-		  '<p>Time: '+ mkpos[4] +'</p>'+
-		  '<p>Location: '+ mkpos[5] +'</p>'+
+		  '<p>Date: '+ event_list[i].event_time +'</p>'+
+		  
+		  '<p>Location: '+ event_list[i].location +'</p>'+
 		  //replace with actual link
 		  '<p><a href="http://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">'+
 		  'Event link</a> '+'</p>'+
@@ -257,12 +235,12 @@ function eventTest() {
     	} else {
 		contentString = '<div id="content">'+'<center>'+
 		  '<div id="siteNotice">'+
-		  '</div>'+
-		  '<h1 id="firstHeading" class="firstHeading">'+mkpos[2]+'</h1>'+
-		  '<div id="bodyContent">'+
-		  '<p>Date: '+ mkpos[3] +'</p>'+
-		  '<p>Time: '+ mkpos[4] +'</p>'+
-		  '<p>Location: '+ mkpos[5] +'</p>'+
+      '</div>'+
+      '<h1 id="firstHeading" class="firstHeading">'+event_list[i].subject+'</h1>'+
+      '<div id="bodyContent">'+
+      '<p>Date: '+ event_list[i].event_time +'</p>'+
+      
+      '<p>Location: '+ event_list[i].location +'</p>'+
 		  //replace with actual link
 		  '<p><a href="http://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">'+
 		  'Event link</a> '+'</p>'+
@@ -297,18 +275,24 @@ function joinEventTest() {
 	//INSERT query goes here
 }
 function photoTest() {
+
+
+
 	marker.setMap(null);
 	hideMarkers();
-	for (var i = 0; i < locs.length; i++) {
-    	var mkpos = locs[i];
-    	var myLatLng = new google.maps.LatLng(mkpos[0], mkpos[1]);
+
+  //var data=post_form("command=showImageList");
+
+	for (var i = 0; i < img_list.length; i++) {
+    	var mkpos = img_list[i];
+    	var myLatLng = new google.maps.LatLng(img_list[i].latitude, img_list[i].longitude);
     	var contentString;
 		//check database if already joined
 
 		//can be switched between true/false for testing	
 		
-		contentString = "<div><img width='100' height='100' src=\""+
-		mkpos[6]+"\"</div>";
+		contentString = "<div><img width='100' height='100' src=../img/"+
+		img_list[i].src+"\"</div>";
 		
 		var ifwindow = new google.maps.InfoWindow({
   			
@@ -319,7 +303,7 @@ function photoTest() {
     	var mk = new google.maps.Marker({
         	position: myLatLng,
         	map: map,
-        	title: mkpos[5],
+        	title: img_list[i].caption,
         	animation: google.maps.Animation.DROP,
         	infowindow: ifwindow
     	});
@@ -338,10 +322,11 @@ function photoTest() {
 function dropdownTest(value) {
 	hideMarkers();
 	if (value == 'events') {
-		testloc();
-	} else if (value == 'users') {
-		photoTest();
-	} else if (value == 'pictures') {
 		eventTest();
+	} else if (value == 'users') {
+		
+	} else if (value == 'pictures') {
+		photoTest();
+
 	}
 }

@@ -1,8 +1,7 @@
 <?php
 session_start();
 
-ob_start();
-require("lib.php");
+
 require("api.php");
 
 
@@ -19,14 +18,21 @@ switch ($_POST['command']) {
 	
 	case "login": 
 		login($_POST['username'], $_POST['password']); break;
-	/*
+	
 	case "register":
-		register($_POST['username'], $_POST['fullName'],$_POST['password'],$_POST['email'],$_POST['year'],$_POST['college'],$_POST['gender'],$_FILES['file'],$_POST['bio']); break;
-	*/
+		register($_POST['username'],$_POST['password'],$_POST['email'],$_POST['gender']); break;
 
 	case "showEventList":
 		showEventList();break;
+	case "showImageList":
+		showImageList();break;
+	
+
 	/*
+	case "show_profile": 
+		load_profile($_POST['username']);break;
+	case "creating_identicons":
+		creating_identicons($_POST['username'],$_POST['password'],$_POST['email'],$_POST['gender']); break;
 	case "changeBio":
 		changeBio($_POST['username'], $_POST['bio']); break;
  	case "AddCourseToList":

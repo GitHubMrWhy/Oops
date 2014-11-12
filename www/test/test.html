@@ -47,6 +47,25 @@ function showEvent(str) {
 </head>
 <body>
 
+<form id="creating_identicons" action="../service/index.php" method="post" >
+<pre>
+<input type="text" name="username" placeholder="Username"></input>
+<input type="text" name="password" placeholder="password"></input>
+<input type="text" name="email" placeholder="email"></input>
+<input type="text" name="gender" placeholder="gender"></input>
+
+<input type="hidden" name="command" value="register" />
+<input type="submit" value="creating_identicons" /> 
+</pre></form>
+
+
+<form id="showProfile" action="../service/index.php" method="post" >
+<pre>
+<input type="text" name="username" placeholder="Username"></input>
+
+<input type="hidden" name="command" value="show_profile" />
+<input type="submit" value="showProfile" /> 
+</pre></form>
 
 
 <form method='post' action='uploadIMG.php' enctype='multipart/form-data'> Select a JPG, GIF, PNG or TIF File:

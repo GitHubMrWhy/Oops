@@ -9,6 +9,16 @@ if (!$link) die("Unable to connect to MySQL: " . mysql_error());
 mysqli_select_db($link, "cs307")or die("Unable to select database: " . mysql_error());
 
 
+function sanitizeString($var)
+{
+  global $connection;
+  $var = strip_tags($var);
+  $var = htmlentities($var);
+  $var = stripslashes($var);
+  return $connection->real_escape_string($var);
+}
+
+
 
 //executes a given sql query with the params and returns an array as result
 function query() {
