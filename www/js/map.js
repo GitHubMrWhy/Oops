@@ -8,6 +8,9 @@ var event_list
 var img_list
 var autocp;
 var countryRestrict = { country: 'us' };
+var data;
+var data_params;
+var data_request;
 
 var locs = [
   [40.4333069,-86.91605909999998,'Yard sale','Tue 11/1/14','3pm','Mackey Arena','http://mingshengxu.com/oops/img/images.jpeg'],
@@ -15,44 +18,45 @@ var locs = [
   [40.4248,-86.911,'Church','Sun 11/15/14','6pm','PMU','http://static2.businessinsider.com/image/509802cb69bedd6209000009/nicolas-cage-will-be-in-the-expendables-3.jpg']
 ];
 
+function searchrequest(value) {
+	
+	if (value == 'events') {
+  data_params  = "command=showEventList";
+	} else if (value == 'pictures') {
+	data_params  = "command=showImageList";
+	}
+	
+  data_request = new XMLHttpRequest();
+ 
+  data_request.open("POST", "service/index.php", false);
+  data_request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
+
+  data_request.onreadystatechange = function() {
   
-//data = JSON.parse(this.responseText)
-
-  img_params  = "command=showImageList"  
-  img_request = new XMLHttpRequest()
-
-  img_request.open("POST", "service/index.php", true)
-  img_request.setRequestHeader("Content-type",
-    "application/x-www-form-urlencoded")
-
-
-  img_request.onreadystatechange = function()
-  {
-    if (this.readyState == 4)
-    {
-      if (this.status == 200)
-      {
-        if (this.responseText != null)
-        {
-          img_list = JSON.parse(this.responseText)
-          
-        //document.getElementById('info').innerHTML =data.length
-
+    if (this.readyState == 4) {
+      if (this.status == 200) {
+        if (this.responseText != null) {
+          data = JSON.parse(data_request.responseText);                
       }
-      else alert("Ajax error: No data received")
+      else {
+		alert("Ajax error: No data received");
+		}
     }
-  else alert( "Ajax error: " + this.statusText)
+  else {
+		alert( "Ajax error: " + this.statusText);
+		}
+	}
+	
+	}
+	
+	data_request.send(data_params);
 }
-}
-
-img_request.send(img_params)
-//data = JSON.parse(this.responseText)
-   
-
 
 
 function initialize() {
+  
+  data_request = null;
   var mapOptions = {
     zoom: 14
   };
@@ -103,10 +107,7 @@ function initialize() {
         types: ['(cities)'],
         componentRestrictions: countryRestrict
       });
-  // var input = /** @type {HTMLInputElement} */(
-      // document.getElementById('autocomplete'));
-	  // map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-	// autocp = new google.maps.places.Autocomplete(input,options);  
+    
 	autocp.bindTo('bounds', map);
 	google.maps.event.addListener(autocp, 'place_changed', function() {
     hideMarkers();
@@ -208,9 +209,9 @@ function eventTest() {
 
   //post_form("command=showEventList");
 
-	for (var i = 0; i < event_list.length; i++) {
-    	var mkpos = event_list[i];
-    	var myLatLng = new google.maps.LatLng(event_list[i].latitude, event_list[i].longitude);
+	for (var i = 0; i < data.length; i++) {
+    	var mkpos = data[i];
+    	var myLatLng = new google.maps.LatLng(data[i].latitude, data[i].longitude);
     	var contentString;
 		//check database if already joined
 
@@ -220,11 +221,11 @@ function eventTest() {
 		contentString = '<div id="content">'+'<center>'+
 		  '<div id="siteNotice">'+
 		  '</div>'+
-		  '<h1 id="firstHeading" class="firstHeading">'+event_list[i].subject+'</h1>'+
+		  '<h1 id="firstHeading" class="firstHeading">'+data[i].subject+'</h1>'+
 		  '<div id="bodyContent">'+
-		  '<p>Date: '+ event_list[i].event_time +'</p>'+
+		  // '<p>Date: '+ img_list[i].img_list +'</p>'+
 		  
-		  '<p>Location: '+ event_list[i].location +'</p>'+
+		  '<p>Location: '+ data[i].location +'</p>'+
 		  //replace with actual link
 		  '<p><a href="http://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">'+
 		  'Event link</a> '+'</p>'+
@@ -236,11 +237,11 @@ function eventTest() {
 		contentString = '<div id="content">'+'<center>'+
 		  '<div id="siteNotice">'+
       '</div>'+
-      '<h1 id="firstHeading" class="firstHeading">'+event_list[i].subject+'</h1>'+
+      '<h1 id="firstHeading" class="firstHeading">'+data[i].subject+'</h1>'+
       '<div id="bodyContent">'+
-      '<p>Date: '+ event_list[i].event_time +'</p>'+
+      '<p>Date: '+ data[i].event_time +'</p>'+
       
-      '<p>Location: '+ event_list[i].location +'</p>'+
+      '<p>Location: '+ data[i].location +'</p>'+
 		  //replace with actual link
 		  '<p><a href="http://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">'+
 		  'Event link</a> '+'</p>'+
@@ -255,7 +256,7 @@ function eventTest() {
     	var mk = new google.maps.Marker({
         	position: myLatLng,
         	map: map,
-        	title: mkpos[5],
+        	
         	animation: google.maps.Animation.DROP,
         	infowindow: ifwindow
     	});
@@ -274,25 +275,22 @@ function eventTest() {
 function joinEventTest() {
 	//INSERT query goes here
 }
+
 function photoTest() {
-
-
-
 	marker.setMap(null);
 	hideMarkers();
 
   //var data=post_form("command=showImageList");
 
-	for (var i = 0; i < img_list.length; i++) {
-    	var mkpos = img_list[i];
-    	var myLatLng = new google.maps.LatLng(img_list[i].latitude, img_list[i].longitude);
+	for (var i = 0; i < data.length; i++) {
+    	var mkpos = data[i];
+    	var myLatLng = new google.maps.LatLng(data[i].latitude, data[i].longitude);
     	var contentString;
 		//check database if already joined
 
 		//can be switched between true/false for testing	
 		
-		contentString = "<div><img width='100' height='100' src=../img/"+
-		img_list[i].src+"\"</div>";
+		contentString = '<img src="'+data[i].src+'" height="100" width="100"></img>';
 		
 		var ifwindow = new google.maps.InfoWindow({
   			
@@ -303,7 +301,7 @@ function photoTest() {
     	var mk = new google.maps.Marker({
         	position: myLatLng,
         	map: map,
-        	title: img_list[i].caption,
+        	title: data[i].caption,
         	animation: google.maps.Animation.DROP,
         	infowindow: ifwindow
     	});
@@ -322,11 +320,17 @@ function photoTest() {
 function dropdownTest(value) {
 	hideMarkers();
 	if (value == 'events') {
+		
+		searchrequest('events');
 		eventTest();
+		delete data_request;
+		
 	} else if (value == 'users') {
 		
 	} else if (value == 'pictures') {
+		
+		searchrequest('pictures');
 		photoTest();
-
+		delete data_request;
 	}
 }
