@@ -93,7 +93,7 @@ echo <<<_END
      -->
    </form>
    <ul class="nav navbar-nav navbar-right">
-    <li><a href="#">Link</a></li>
+    <li><a href="HELP_PAGE.pdf">Help</a></li>
     <li class="dropdown">
       <a href="#" class="dropdown-toggle" data-toggle="dropdown" >
         <span class="glyphicon glyphicon-user"></span>

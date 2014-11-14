@@ -111,6 +111,19 @@ function showEventList(){
 }
 
 
+function showEventInfo($event_id){
+	$result=query("SELECT * FROM event WHERE event_id='%s' ",$event_id);
+	//$result = query("SELECT * FROM course_List WHERE username='%s' AND crn='%s'ORDER BY id DESC limit 1", $user,$crn);
+	if ($result['error']) {
+		//echo "error when find username";
+		errorJson('ERROR: Event List retrieve error');
+	}else{
+		
+		return json_encode($result['result'][0]);
+	}
+}
+
+
 function JoinEventCheck($username,$event_id) {
 	$check=query("SELECT * FROM join_event ORDER BY event_id DESC");
 
@@ -161,6 +174,9 @@ function AddNewEvent($owner,$subject,$content,$location,$event_time,$latitude,$l
 
 
 }
+
+
+
 
 
 

@@ -35,7 +35,7 @@ echo <<<_END
   </div>
   <div id="main">
     <div id="banner">
-      <img src="pics/backstar.jpeg" alt="" class="image-full" />   <!--  This is user chose home pic-->
+      <img src="img/test.jpg" alt="" class="image-full" />   <!--  This is user chose home pic-->
     </div>
     <div id="welcome">
       <div class="title">
