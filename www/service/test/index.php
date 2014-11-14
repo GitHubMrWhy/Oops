@@ -1,6 +1,6 @@
 <?php
 	require_once ('config.php');
-
+	require_once ('filter.php');
 ?>
 <!DOCTYPE html>
 <html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -63,7 +63,7 @@
 		
 
 	
-		$str = "SELECT * FROM PHOTO";
+		$str = "SELECT * FROM IMAGE";
 	
 		
 		$result = mysql_query($str);
@@ -75,11 +75,11 @@
 		?> 
 				  
                   <tr>
-			<td><span style="font-weight:bold"><a href="<?php echo $row["url"]; ?>"><img src="<?php echo $row["url"]; ?>" style="max-width:300px" /></a></span></td>
-			<td><?php echo $row["url"]; ?></td>
-			<td><?php echo $row["username"]; ?></td>
-			<td><?php echo $row["dates"]; ?></td>
-			<td><a href="del.php?id=<?php echo $row["id"]; ?>">Delete</a></td>
+			<td><span style="font-weight:bold"><a href="<?php echo $row["location"]; ?>"><img src="<?php echo $row["location"]; ?>" style="max-width:300px" /></a></span></td>
+			<td><?php echo $row["location"]; ?></td>
+			<td><?php echo $row["owner"]; ?></td>
+			<td><?php echo $row["create_time"]; ?></td>
+			<td><a href="del.php?id=<?php echo $row["image_id"]; ?>">Delete</a></td>
 		</tr>
 		<?php } ?>  
 	</table>

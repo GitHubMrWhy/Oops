@@ -27,8 +27,8 @@ echo <<<_END
       <ul>
         <li class="current_page_item"><a href="#" accesskey="1" title="">Homepage</a></li>
         <li><a href="" accesskey="3" title="">Message Board</a></li>
-        <li><a href="#" accesskey="4" title="">Photo Wall</a></li>
-        <li><a href="#" accesskey="5" title="">My Events</a></li>
+        <li><a href="myphoto.php" accesskey="4" title="">Photo Wall</a></li>
+        <li><a href="myevent.php" accesskey="5" title="">My Events</a></li>
         <li><a href="profile_edit.php" accesskey="5" title="">Profile</a></li>
       </ul>
     </div>

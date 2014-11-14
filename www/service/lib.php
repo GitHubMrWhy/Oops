@@ -1,7 +1,9 @@
 <?
 
 //setup db connection
+
 $link = mysqli_connect("23.229.205.68","cs307","cs307group");
+
 
 
 

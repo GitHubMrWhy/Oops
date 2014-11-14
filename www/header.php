@@ -103,8 +103,8 @@ echo <<<_END
       <ul class="dropdown-menu" role="menu"> 
 
         <li><a href="profile.php">My Profile</a></li>
-        <li><a href="#">My Event</a></li>
-        <li><a href="#">My Photo</a></li>
+        <li><a href="myevent.php">My Event</a></li>
+        <li><a href="myphoto.php">My Photo</a></li>
         <li class="divider"></li>
         <li><a href="logout.php">Logout</a></li>
       </ul>

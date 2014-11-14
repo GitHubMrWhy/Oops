@@ -209,7 +209,7 @@ function hasJoined (usr,evt) {
 	
   joined_request = new XMLHttpRequest();
  
-  joined_request.open("POST", "event_detail.php", false);
+  joined_request.open("POST", "service/index.php", false);
   joined_request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
 	res = null;
@@ -277,7 +277,7 @@ function eventTest() {
     	var mkpos = data[i];
     	var myLatLng = new google.maps.LatLng(data[i].latitude, data[i].longitude);
     	var contentString;
-		var joined;
+		var joined = true;
 		var host = false;
 		//check database if already joined
 		//hasJoined(user,data[i].event_id);
@@ -298,8 +298,8 @@ function eventTest() {
 		  
 		  '<p>Location: '+ data[i].location +'</p>'+
 		  //replace with actual link
-		  '<p><a href="http://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">'+
-		  'Event link</a> '+'</p>'+
+		  '<p><a href="event_detail.php?event_id='+data[i].event_id+'">'+
+		  'Event detail</a> '+'</p>'+
 		  '</div>'+
 		  '<button type="button" onclick="join()"> Join event test </button>'+'</center>'
 		  '</div>';
@@ -314,8 +314,8 @@ function eventTest() {
       
       '<p>Location: '+ data[i].location +'</p>'+
 		  //replace with actual link
-		  '<p><a href="http://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">'+
-		  'Event link</a> '+'</p>'+
+		   '<p><a href="event_detail.php?event_id='+data[i].event_id+'">'+
+		  'Event detail</a> '+'</p>'+
 		  '</div>Joined!'+'</center>'+'</div>';
 		}
 		var ifwindow = new google.maps.InfoWindow({
@@ -343,9 +343,6 @@ function eventTest() {
   	}
 }
 
-function joinEventTest() {
-	//INSERT query goes here
-}
 
 function photoTest() {
 	marker.setMap(null);
