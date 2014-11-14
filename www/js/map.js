@@ -11,6 +11,8 @@ var countryRestrict = { country: 'us' };
 var data;
 var data_params;
 var data_request;
+var user;
+var res;
 
 var locs = [
   [40.4333069,-86.91605909999998,'Yard sale','Tue 11/1/14','3pm','Mackey Arena','http://mingshengxu.com/oops/img/images.jpeg'],
@@ -55,7 +57,7 @@ function searchrequest(value) {
 
 
 function initialize() {
-  
+  user = document.getElementById("myInput").value;
   data_request = null;
   var mapOptions = {
     zoom: 14
@@ -202,6 +204,68 @@ function testloc(){
 
 }
 
+function hasJoined (usr,evt) {
+	joined_params  = "command=joinEventCheck&username="+usr+"&eventID="+evt;
+	
+  joined_request = new XMLHttpRequest();
+ 
+  joined_request.open("POST", "event_detail.php", false);
+  joined_request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+	res = null;
+  joined_request.onreadystatechange = function() {
+  
+    if (this.readyState == 4) {
+      if (this.status == 200) {
+        if (this.responseText != null) {
+          res = JSON.parse(joined_request.responseText);                
+      }
+      else {
+		alert("Ajax error: No data received");
+		}
+    }
+  else {
+		alert( "Ajax error: " + this.statusText);
+		}
+	}
+	
+	}
+	
+	joined_request.send(joined_params);
+	
+}
+
+function join (usr,evt) {
+	join_params  = "command=joinEvent&username="+usr+"&eventID="+evt;
+	
+  join_request = new XMLHttpRequest();
+ 
+  join_request.open("POST", "service/index.php", true);
+  join_request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+	res = null;
+  join_request.onreadystatechange = function() {
+  
+    if (this.readyState == 4) {
+      if (this.status == 200) {
+        if (this.responseText != null) {
+          res = JSON.parse(join_request.responseText);                
+      }
+      else {
+		alert("Ajax error: No data received");
+		}
+    }
+  else {
+		alert( "Ajax error: " + this.statusText);
+		}
+	}
+	
+	}
+	
+	join_request.send(join_params);
+	
+}
+
 function eventTest() {
   marker.setMap(null);
   hideMarkers();
@@ -213,10 +277,17 @@ function eventTest() {
     	var mkpos = data[i];
     	var myLatLng = new google.maps.LatLng(data[i].latitude, data[i].longitude);
     	var contentString;
+		var joined;
+		var host = false;
 		//check database if already joined
-
+		//hasJoined(user,data[i].event_id);
+		//if (res != null) {
+		//document.getElementById("test1").value = res[0];
+		//} else {
+		//document.getElementById("test1").value = 'null';
+		//}
 		//can be switched between true/false for testing	
-		var joined = true;
+		
 		if (joined == true) {
 		contentString = '<div id="content">'+'<center>'+
 		  '<div id="siteNotice">'+
@@ -230,7 +301,7 @@ function eventTest() {
 		  '<p><a href="http://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">'+
 		  'Event link</a> '+'</p>'+
 		  '</div>'+
-		  '<button type="button" onclick="joinEventTest()"> Join event test </button>'+'</center>'
+		  '<button type="button" onclick="join()"> Join event test </button>'+'</center>'
 		  '</div>';
 		
     	} else {

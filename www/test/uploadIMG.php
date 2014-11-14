@@ -33,4 +33,13 @@ if ($_FILES) {
 }
 	else echo "No image has been uploaded";
 	echo "</body></html>"; 
+
+
+echo <<<_END
+<form method='post' action='uploadIMG.php' enctype='multipart/form-data'> Select a JPG, GIF, PNG or TIF File:
+  <input type='file' name='filename' size='10' />
+  <input type='submit' value='Upload' />
+</form>
+
+_END
 ?>

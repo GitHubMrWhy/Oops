@@ -177,6 +177,30 @@ a {
 	outline: none;
 }
 
+.content input[type=button]{
+	width: 90px;
+	height: 35px;
+	background: #fff;
+	border: 1px solid #fff;
+	cursor: pointer;
+	border-radius: 2px;
+	color: #a18d6c;
+	font-family: 'Exo', sans-serif;
+	font-size: 16px;
+	font-weight: 400;
+	padding:6px;
+	margin-top:10px;
+
+}
+.content input[type=button]:hover{
+	opacity: 0.3;
+	filter: alpha(opacity=30);
+}
+
+.content input[type=button]:focus{
+	outline: none;
+}
+
 ::-webkit-input-placeholder{
 	color: rgba(255,255,255,0.6);
 }
@@ -314,8 +338,11 @@ ul.nav a:hover, ul.nav a:active, ul.nav a:focus {
 
 			<input type="hidden" name="command" value="login" />
 			<input type="submit" value="Login" /> 
+			<br></br>
+			<input type="button" onclick="location.href='register.php'" value="Register">
 		</form>
 	</table>
+
 
 			<!-- end .content --></div>
 			<!-- end .container --></div>

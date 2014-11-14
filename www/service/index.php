@@ -6,7 +6,6 @@ require("api.php");
 
 
 
-
 //checkCRN('10520');
 //deleteCourseItem('test','123');
 //echo("here");
@@ -26,8 +25,12 @@ switch ($_POST['command']) {
 		showEventList();break;
 	case "showImageList":
 		showImageList();break;
+	case "JoinEventCheck":
+		joinEventCheck($_POST['username'],$_POST['eventID']);break;
+	case "AddNewEvent":
+		AddNewEvent($_POST['username'], $_POST['subject'], $_POST['content'], $_POST['location'], $_POST['event_time'], $_POST['latitude'], $_POST['longitude']); break;
 	
-
+	
 	/*
 	case "show_profile": 
 		load_profile($_POST['username']);break;
